@@ -49,13 +49,56 @@ describe("Filling out the inputs and cancelling", ()=>{
     it("submit button starts out disabled", ()=> {
         submitBtn().should("be.disabled");
     })
+
+
     it("can type in the inputs", ()=>{
         textInput()
-        .should("have.value", "")
-        .type("CSS rulez")
-        .should("have.value", "CSS rulez");
+            .should("have.value", "")
+            .type("CSS rulez")
+            .should("have.value", "CSS rulez");
+
+        authorInput()
+            .should("have.value", "")
+            .type("CRHarding")
+            .should("have.value", "CRHarding");
     })
+
+    it("the submit button enables when both inputs are filled out", () => {
+        authorInput().type("Casey");
+        textInput().type("This is fun!");
+        submitBtn().should("not.be.disabled");
+    })
+
+    it("the cancel button can disable the submit button", ()=> {
+        authorInput().type("FUN");
+        cancelBtn().click();
+        textInput().should("have.value", "");
+        authorInput().should("have.value", "");
+        submitBtn().should("be.disabled");
+    })
+
+      
 })
+
+describe("Adding a new quote"), () => {
+    it("can submit and delete a new quote", () => {
+        textInput().type("CSS rulez");
+        authorInput().type("CRHarding");
+        submitBtn().click();
+        /**
+         * It's important that state is the same at the beginning of each test!
+         * We immediatly delete the new post, Whenever we create 
+         * something in the database we want to delete it
+         * Worse Case Restart The Server Script (ctrl-c) and then run `npm run server`
+         * In the realworld you will have a testing database
+         */
+        cy.contains("CSS rulez").siblings("buttons:nth-of-type(2)").click();
+        cy.contains("CSS rulez").should("not.exist");
+    })
+
+}
+
+   
 
 /**
  * const person = {
@@ -82,4 +125,11 @@ describe("Filling out the inputs and cancelling", ()=>{
  */
 
 
+
+
+
+
+
+
+//NOTHING BELOW THIS LINE\\
 })
