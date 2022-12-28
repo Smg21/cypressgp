@@ -70,17 +70,18 @@ describe("Filling out the inputs and cancelling", ()=>{
     })
 
     it("the cancel button can disable the submit button", ()=> {
-        authorInput().type("FUN");
-        cancelBtn().click();
-        textInput().should("have.value", "");
-        authorInput().should("have.value", "");
-        submitBtn().should("be.disabled");
+       authorInput().type("Casey");
+       textInput().type("FUN");
+       cancelBtn().click();
+       textInput().should("have.value", "");
+       authorInput().should("have.value", "");
+       submitBtn().should("be.disabled");
     })
 
       
 })
 
-describe("Adding a new quote"), () => {
+describe("Adding a new quote", () => {
     it("can submit and delete a new quote", () => {
         textInput().type("CSS rulez");
         authorInput().type("CRHarding");
@@ -96,7 +97,7 @@ describe("Adding a new quote"), () => {
         cy.contains("CSS rulez").should("not.exist");
     })
 
-}
+})
 
    
 
