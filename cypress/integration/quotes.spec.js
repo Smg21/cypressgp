@@ -93,7 +93,7 @@ describe("Adding a new quote", () => {
          * Worse Case Restart The Server Script (ctrl-c) and then run `npm run server`
          * In the realworld you will have a testing database
          */
-        cy.contains("CSS rulez").siblings("buttons:nth-of-type(2)").click();
+        cy.contains("CSS rulez").siblings("button:nth-of-type(2)").click();
         cy.contains("CSS rulez").should("not.exist");
     })
 
