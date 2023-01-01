@@ -77,11 +77,6 @@ describe("Filling out the inputs and cancelling", ()=>{
        authorInput().should("have.value", "");
        submitBtn().should("be.disabled");
     })
-
-      
-})
-
-describe("Adding a new quote", () => {
     it("can submit and delete a new quote", () => {
         textInput().type("CSS rulez");
         authorInput().type("CRHarding");
@@ -97,8 +92,36 @@ describe("Adding a new quote", () => {
         cy.contains("CSS rulez").should("not.exist");
     })
 
+    it("variation of can submit a new quote", () => {
+        cy.contains("CSS rulez").should("not.exist");
+        textInput().type("CSS rulez");
+        authorInput().type("Casey");
+        submitBtn().click();
+        cy.contains("CSS rulez");
+        cy.contains("Casey");
+        cy.contains("CSS rulez").next().next().click();
+        cy.contains("CSS rulez").should("not.exist");
+    })
+
 })
 
+describe("Editing an existing qoute", ()=> {
+    it("can edit a quote", ()=> {
+        textInput().type("Lorem ipsum");
+        authorInput().type("CRHarding");
+        submitBtn().click();
+        cy.contains("Lorem ipsum").siblings("button:nth-of-type(1)").click();
+        textInput().should("have.value", "Lorem ipsum");
+        authorInput().should("have.value", "CRHarding");
+        textInput().type(" dolor sit");
+        authorInput().type(" ROCKS!");
+        submitBtn().click();
+        cy.contains("Lorem ipsum dolor sit (CRHarding ROCKS!)");
+        //gotta hit the delete button
+        cy.contains("Lorem ipsum dolor sit (CRHarding ROCKS!)").next().next().click();
+        cy.contains("Lorem ipsum dolor sit (CRHarding ROCKS!)").should("not.exist")
+    })
+})
    
 
 /**
